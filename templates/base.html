@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Складская MVC-система{% endblock %}</title>
+    <style>
+        :root {
+            --bg: #0b0613;
+            --panel: #140a22;
+            --panel-2: #1b0f2d;
+            --line: #3a1e63;
+            --text: #f3eaff;
+            --muted: #bba7e6;
+            --accent: #a855f7;
+            --accent-2: #d946ef;
+            --accent-3: #7c3aed;
+            --success: #22c55e;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --shadow: 0 0 18px rgba(168, 85, 247, 0.28);
+            --shadow-strong: 0 0 24px rgba(217, 70, 239, 0.35);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background:
+                radial-gradient(circle at top left, rgba(168, 85, 247, 0.18), transparent 28%),
+                radial-gradient(circle at top right, rgba(217, 70, 239, 0.12), transparent 25%),
+                linear-gradient(180deg, #09050f 0%, #10071a 50%, #0b0613 100%);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        a {
+            color: #e9d5ff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: #ffffff;
+        }
+
+        .container {
+            width: min(1200px, 94%);
+            margin: 0 auto;
+            padding: 24px 0 40px;
+        }
+
+        .topbar {
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            backdrop-filter: blur(10px);
+            background: rgba(11, 6, 19, 0.88);
+            border-bottom: 1px solid rgba(168, 85, 247, 0.25);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.22);
+        }
+
+        .topbar-inner {
+            width: min(1200px, 94%);
+            margin: 0 auto;
+            padding: 14px 0;
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .brand {
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: 0.4px;
+            color: #fff;
+            text-shadow: 0 0 12px rgba(217, 70, 239, 0.6);
+        }
+
+        .brand span {
+            color: var(--accent-2);
+        }
+
+        .nav {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .nav a {
+            padding: 10px 14px;
+            border: 1px solid rgba(168, 85, 247, 0.28);
+            border-radius: 12px;
+            background: rgba(27, 15, 45, 0.92);
+            color: var(--text);
+            transition: 0.2s ease;
+        }
+
+        .nav a:hover {
+            transform: translateY(-1px);
+            box-shadow: var(--shadow);
+            border-color: rgba(217, 70, 239, 0.5);
+        }
+
+        .hero,
+        .card,
+        .table-wrap,
+        .form-wrap,
+        .doc-wrap {
+            background: linear-gradient(180deg, rgba(27, 15, 45, 0.96), rgba(20, 10, 34, 0.96));
+            border: 1px solid rgba(168, 85, 247, 0.24);
+            border-radius: 18px;
+            box-shadow: var(--shadow);
+        }
+
+        .hero {
+            padding: 28px;
+            margin-bottom: 22px;
+        }
+
+        .hero h1 {
+            margin: 0 0 10px;
+            font-size: 32px;
+            color: #fff;
+            text-shadow: 0 0 14px rgba(168, 85, 247, 0.45);
+        }
+
+        .hero p {
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.55;
+        }
+
+        .grid {
+            display: grid;
+            gap: 18px;
+        }
+
+        .grid-4 {
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        }
+
+        .card {
+            padding: 18px;
+        }
+
+        .card h3 {
+            margin: 0 0 10px;
+            color: #fff;
+        }
+
+        .stat {
+            font-size: 30px;
+            font-weight: 700;
+            color: #f5d0fe;
+            text-shadow: 0 0 14px rgba(217, 70, 239, 0.45);
+        }
+
+        .muted {
+            color: var(--muted);
+        }
+
+        .section-title {
+            margin: 28px 0 14px;
+            font-size: 24px;
+            color: #fff;
+        }
+
+        .messages {
+            margin-bottom: 18px;
+            display: grid;
+            gap: 10px;
+        }
+
+        .message {
+            padding: 14px 16px;
+            border-radius: 14px;
+            border: 1px solid rgba(168, 85, 247, 0.26);
+            background: rgba(27, 15, 45, 0.95);
+        }
+
+        .message.success {
+            border-color: rgba(34, 197, 94, 0.45);
+            box-shadow: 0 0 14px rgba(34, 197, 94, 0.12);
+        }
+
+        .message.error {
+            border-color: rgba(239, 68, 68, 0.45);
+            box-shadow: 0 0 14px rgba(239, 68, 68, 0.12);
+        }
+
+        .message.warning {
+            border-color: rgba(245, 158, 11, 0.45);
+        }
+
+        .message.info {
+            border-color: rgba(168, 85, 247, 0.45);
+        }
+
+        .table-wrap,
+        .form-wrap,
+        .doc-wrap {
+            padding: 20px;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 760px;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 12px 10px;
+            border-bottom: 1px solid rgba(168, 85, 247, 0.16);
+            vertical-align: top;
+        }
+
+        th {
+            color: #f5d0fe;
+            font-weight: 700;
+            background: rgba(124, 58, 237, 0.10);
+        }
+
+        tr:hover td {
+            background: rgba(168, 85, 247, 0.06);
+        }
+
+        .actions {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .btn,
+        button {
+            appearance: none;
+            border: none;
+            border-radius: 12px;
+            padding: 10px 14px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s ease;
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            color: #fff;
+            box-shadow: var(--shadow);
+        }
+
+        .btn:hover,
+        button:hover {
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-strong);
+        }
+
+        .btn.secondary {
+            background: linear-gradient(135deg, #4c1d95, #6d28d9);
+        }
+
+        .btn.danger {
+            background: linear-gradient(135deg, #b91c1c, #ef4444);
+        }
+
+        .btn.success {
+            background: linear-gradient(135deg, #15803d, #22c55e);
+        }
+
+        form p {
+            margin: 0 0 14px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            color: #f5d0fe;
+            font-weight: 700;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 11px 12px;
+            border-radius: 12px;
+            border: 1px solid rgba(168, 85, 247, 0.28);
+            background: rgba(11, 6, 19, 0.92);
+            color: var(--text);
+            outline: none;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: rgba(217, 70, 239, 0.7);
+            box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.16);
+        }
+
+        textarea {
+            min-height: 110px;
+            resize: vertical;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 18px;
+        }
+
+        .small {
+            font-size: 13px;
+            color: var(--muted);
+        }
+
+        .empty {
+            padding: 18px;
+            border-radius: 14px;
+            background: rgba(124, 58, 237, 0.08);
+            border: 1px dashed rgba(168, 85, 247, 0.28);
+            color: var(--muted);
+        }
+
+        .pill {
+            display: inline-block;
+            padding: 6px 10px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 700;
+            color: white;
+        }
+
+        .pill.ok {
+            background: linear-gradient(135deg, #15803d, #22c55e);
+        }
+
+        .pill.no {
+            background: linear-gradient(135deg, #7c2d12, #ef4444);
+        }
+
+        .split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+
+        @media (max-width: 860px) {
+            .split {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 26px;
+            }
+        }
+    </style>
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+    <header class="topbar">
+        <div class="topbar-inner">
+            <div class="brand">Warehouse <span>MVC</span></div>
+            <nav class="nav">
+                <a href="{% url 'index' %}">Главная</a>
+                <a href="{% url 'products_list' %}">Товары</a>
+                <a href="{% url 'warehouses_list' %}">Склады</a>
+                <a href="{% url 'counterparties_list' %}">Контрагенты</a>
+                <a href="{% url 'docs_list' %}">Документы</a>
+                <a href="{% url 'stocks_list' %}">Остатки</a>
+                <a href="{% url 'ledger_list' %}">Журнал</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                    <div class="message {{ message.tags|default:'info' }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>

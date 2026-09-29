@@ -1,0 +1,197 @@
+{% extends "base.html" %}
+
+{% block title %}{{ title }} | Warehouse MVC{% endblock %}
+
+{% block content %}
+    <section class="hero">
+        <h1>{{ title }}</h1>
+        <p>
+            Тип: <strong>{{ doc.get_doc_type_display }}</strong> |
+            Дата: <strong>{{ doc.doc_date|date:"d.m.Y H:i" }}</strong> |
+            Проведен:
+            {% if doc.is_posted %}
+                <span class="pill ok">Да</span>
+            {% else %}
+                <span class="pill no">Нет</span>
+            {% endif %}
+        </p>
+
+        <div class="form-actions" style="margin-top: 18px;">
+            <a class="btn secondary" href="{% url 'docs_list' %}">Назад к документам</a>
+
+            {% if not doc.is_posted %}
+                <a class="btn secondary" href="{% url 'doc_edit' doc.pk %}">Редактировать документ</a>
+                <a class="btn success" href="{% url 'doc_post' doc.pk %}">Провести документ</a>
+                <a class="btn danger" href="{% url 'doc_delete' doc.pk %}">Удалить документ</a>
+            {% endif %}
+        </div>
+    </section>
+
+    <section class="doc-wrap">
+        <h2>Реквизиты документа</h2>
+        <table>
+            <tbody>
+                <tr>
+                    <th style="width: 260px;">Номер документа</th>
+                    <td>{{ doc.doc_no }}</td>
+                </tr>
+                <tr>
+                    <th>Тип документа</th>
+                    <td>{{ doc.get_doc_type_display }}</td>
+                </tr>
+                <tr>
+                    <th>Склад-отправитель</th>
+                    <td>{{ doc.warehouse_from|default:"—" }}</td>
+                </tr>
+                <tr>
+                    <th>Склад-получатель</th>
+                    <td>{{ doc.warehouse_to|default:"—" }}</td>
+                </tr>
+                <tr>
+                    <th>Контрагент</th>
+                    <td>{{ doc.counterparty|default:"—" }}</td>
+                </tr>
+                <tr>
+                    <th>Комментарий</th>
+                    <td>{{ doc.comment|default:"—" }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <h2 class="section-title">Строки документа</h2>
+
+    {% if not doc.is_posted %}
+        <section class="form-wrap" style="margin-bottom: 20px;">
+            <h3>Добавить строку</h3>
+            <form method="post" id="item-form">
+				{% csrf_token %}
+
+				<p>
+					<label for="{{ item_form.product.id_for_label }}">Товар</label>
+					{{ item_form.product }}
+				</p>
+
+				<p>
+					<label for="{{ item_form.quantity.id_for_label }}">Количество</label>
+					{{ item_form.quantity }}
+				</p>
+
+				<p>
+					<label for="product-price-preview">Цена из справочника</label>
+					<input type="text" id="product-price-preview" readonly>
+				</p>
+
+				<p>
+					<label for="line-total-preview">Сумма</label>
+					<input type="text" id="line-total-preview" readonly>
+				</p>
+
+				<div class="form-actions">
+					<button type="submit">Добавить строку</button>
+				</div>
+			</form>
+
+			{{ product_prices|json_script:"product-prices-data" }}
+
+			<script>
+			(function () {
+				const productSelect = document.getElementById("id_product");
+				const quantityInput = document.getElementById("id_quantity");
+				const pricePreview = document.getElementById("product-price-preview");
+				const totalPreview = document.getElementById("line-total-preview");
+
+				if (!productSelect || !quantityInput || !pricePreview || !totalPreview) {
+					return;
+				}
+
+				const prices = JSON.parse(document.getElementById("product-prices-data").textContent);
+
+				function updateLinePreview() {
+					const productId = productSelect.value;
+					const price = parseFloat(prices[productId] || "0");
+					const qty = parseFloat(quantityInput.value || "0");
+					const total = price * qty;
+
+					pricePreview.value = price.toFixed(2);
+					totalPreview.value = total.toFixed(2);
+				}
+
+				productSelect.addEventListener("change", updateLinePreview);
+				quantityInput.addEventListener("input", updateLinePreview);
+
+				updateLinePreview();
+			})();
+			</script>
+        </section>
+    {% endif %}
+
+    <section class="table-wrap">
+        {% if items %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Товар</th>
+                        <th>Количество</th>
+                        <th>Цена</th>
+                        <th>Сумма</th>
+                        {% if not doc.is_posted %}
+                            <th>Действия</th>
+                        {% endif %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in items %}
+                        <tr>
+                            <td>{{ item.id }}</td>
+							<td>{{ item.product|default:"Удаленный товар" }}</td>
+                            <td>{{ item.quantity }}</td>
+                            <td>{{ item.price }}</td>
+                            <td>{{ item.line_total }}</td>
+                            {% if not doc.is_posted %}
+                                <td>
+                                    <a class="btn danger" href="{% url 'item_delete' item.pk %}">Удалить</a>
+                                </td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <div class="empty">В документе пока нет строк.</div>
+        {% endif %}
+    </section>
+
+    <h2 class="section-title">Записи журнала по документу</h2>
+    <section class="table-wrap">
+        {% if ledger_entries %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Дата</th>
+                        <th>Склад</th>
+                        <th>Товар</th>
+                        <th>Изменение</th>
+                        <th>Примечание</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for entry in ledger_entries %}
+                        <tr>
+                            <td>{{ entry.id }}</td>
+                            <td>{{ entry.created_at|date:"d.m.Y H:i" }}</td>
+                            <td>{{ entry.warehouse }}</td>
+                            <td>{{ entry.product }}</td>
+                            <td>{{ entry.delta_qty }}</td>
+                            <td>{{ entry.note|default:"—" }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <div class="empty">После проведения документа здесь появятся записи журнала.</div>
+        {% endif %}
+    </section>
+{% endblock %}

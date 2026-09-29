@@ -1,0 +1,395 @@
+{% extends "base.html" %}
+
+{% block title %}{{ title }} | Warehouse MVC{% endblock %}
+
+{% block content %}
+    {% if page == "home" %}
+        <section class="hero">
+            <h1>Складская система учета</h1>
+            <p>
+                Локальное MVC-приложение для работы со справочниками,
+                документами движения, остатками и журналом операций
+            </p>
+        </section>
+
+        <section class="grid grid-4">
+            <div class="card">
+                <h3>Товары</h3>
+                <div class="stat">{{ products_count }}</div>
+                <div class="muted">записей в справочнике</div>
+            </div>
+            <div class="card">
+                <h3>Склады</h3>
+                <div class="stat">{{ warehouses_count }}</div>
+                <div class="muted">складских объектов</div>
+            </div>
+            <div class="card">
+                <h3>Контрагенты</h3>
+                <div class="stat">{{ counterparties_count }}</div>
+                <div class="muted">контрагентов в базе</div>
+            </div>
+            <div class="card">
+                <h3>Документы</h3>
+                <div class="stat">{{ docs_count }}</div>
+                <div class="muted">из них проведено: {{ posted_docs_count }}</div>
+            </div>
+        </section>
+
+        <h2 class="section-title">Состояние склада</h2>
+        <section class="grid grid-4">
+            <div class="card">
+                <h3>Строк остатков</h3>
+                <div class="stat">{{ stock_rows_count }}</div>
+                <div class="muted">комбинаций склад + товар</div>
+            </div>
+            <div class="card">
+                <h3>Суммарный остаток</h3>
+                <div class="stat">{{ stock_total_qty }}</div>
+                <div class="muted">по всем складам</div>
+            </div>
+        </section>
+
+        <h2 class="section-title">Последние документы</h2>
+        <section class="table-wrap">
+            {% if recent_docs %}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Тип</th>
+                            <th>Номер</th>
+                            <th>Дата</th>
+                            <th>Откуда</th>
+                            <th>Куда</th>
+                            <th>Контрагент</th>
+                            <th>Проведен</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for obj in recent_docs %}
+                            <tr>
+                                <td>{{ obj.id }}</td>
+                                <td>{{ obj.get_doc_type_display }}</td>
+                                <td><a href="{% url 'doc_detail' obj.pk %}">{{ obj.doc_no }}</a></td>
+                                <td>{{ obj.doc_date|date:"d.m.Y H:i" }}</td>
+                                <td>{{ obj.warehouse_from|default:"—" }}</td>
+                                <td>{{ obj.warehouse_to|default:"—" }}</td>
+                                <td>{{ obj.counterparty|default:"—" }}</td>
+                                <td>
+                                    {% if obj.is_posted %}
+                                        <span class="pill ok">Да</span>
+                                    {% else %}
+                                        <span class="pill no">Нет</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <div class="empty">Документов пока нет</div>
+            {% endif %}
+        </section>
+    {% endif %}
+
+    {% if page == "products" %}
+        <section class="hero">
+            <h1>Товары</h1>
+            <p>Добавление, просмотр, редактирование и удаление товаров</p>
+        </section>
+
+        <section class="split">
+            <div class="form-wrap">
+                <h2>Добавить товар</h2>
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <div class="form-actions">
+                        <button type="submit">Сохранить</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="table-wrap">
+                <h2>Список товаров</h2>
+                {% if objects %}
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Артикул</th>
+                                <th>Наименование</th>
+                                <th>Ед.</th>
+                                <th>Цена</th>
+                                <th>Действия</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for obj in objects %}
+                                <tr>
+                                    <td>{{ obj.id }}</td>
+                                    <td>{{ obj.sku }}</td>
+                                    <td>{{ obj.name }}</td>
+                                    <td>{{ obj.unit }}</td>
+                                    <td>{{ obj.price }}</td>
+                                    <td>
+                                        <div class="actions">
+                                            <a class="btn secondary" href="{% url 'product_edit' obj.pk %}">Изменить</a>
+                                            <a class="btn danger" href="{% url 'product_delete' obj.pk %}">Удалить</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <div class="empty">Товары пока не добавлены</div>
+                {% endif %}
+            </div>
+        </section>
+    {% endif %}
+
+    {% if page == "warehouses" %}
+        <section class="hero">
+            <h1>Склады</h1>
+            <p>Справочник складов для учета приходов, расходов и перемещений</p>
+        </section>
+
+        <section class="split">
+            <div class="form-wrap">
+                <h2>Добавить склад</h2>
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <div class="form-actions">
+                        <button type="submit">Сохранить</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="table-wrap">
+                <h2>Список складов</h2>
+                {% if objects %}
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Название</th>
+                                <th>Адрес</th>
+                                <th>Действия</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for obj in objects %}
+                                <tr>
+                                    <td>{{ obj.id }}</td>
+                                    <td>{{ obj.name }}</td>
+                                    <td>{{ obj.address|default:"—" }}</td>
+                                    <td>
+                                        <div class="actions">
+                                            <a class="btn secondary" href="{% url 'warehouse_edit' obj.pk %}">Изменить</a>
+                                            <a class="btn danger" href="{% url 'warehouse_delete' obj.pk %}">Удалить</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <div class="empty">Склады пока не добавлены</div>
+                {% endif %}
+            </div>
+        </section>
+    {% endif %}
+
+    {% if page == "counterparties" %}
+        <section class="hero">
+            <h1>Контрагенты</h1>
+            <p>Справочник поставщиков, клиентов и других контрагентов</p>
+        </section>
+
+        <section class="split">
+            <div class="form-wrap">
+                <h2>Добавить контрагента</h2>
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <div class="form-actions">
+                        <button type="submit">Сохранить</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="table-wrap">
+                <h2>Список контрагентов</h2>
+                {% if objects %}
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Наименование</th>
+                                <th>Контакты</th>
+                                <th>Действия</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for obj in objects %}
+                                <tr>
+                                    <td>{{ obj.id }}</td>
+                                    <td>{{ obj.name }}</td>
+                                    <td>{{ obj.contact_info|default:"—" }}</td>
+                                    <td>
+                                        <div class="actions">
+                                            <a class="btn secondary" href="{% url 'counterparty_edit' obj.pk %}">Изменить</a>
+                                            <a class="btn danger" href="{% url 'counterparty_delete' obj.pk %}">Удалить</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <div class="empty">Контрагенты пока не добавлены</div>
+                {% endif %}
+            </div>
+        </section>
+    {% endif %}
+
+    {% if page == "docs" %}
+        <section class="hero">
+            <h1>Документы движения</h1>
+            <p>Создание и просмотр приходов, расходов и перемещений</p>
+            <div class="form-actions" style="margin-top: 18px;">
+                <a class="btn" href="{% url 'doc_create' %}">Создать документ</a>
+            </div>
+        </section>
+
+        <section class="table-wrap">
+            {% if objects %}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Тип</th>
+                            <th>Номер</th>
+                            <th>Дата</th>
+                            <th>Откуда</th>
+                            <th>Куда</th>
+                            <th>Контрагент</th>
+                            <th>Проведен</th>
+                            <th>Действия</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for obj in objects %}
+                            <tr>
+                                <td>{{ obj.id }}</td>
+                                <td>{{ obj.get_doc_type_display }}</td>
+                                <td>{{ obj.doc_no }}</td>
+                                <td>{{ obj.doc_date|date:"d.m.Y H:i" }}</td>
+                                <td>{{ obj.warehouse_from|default:"—" }}</td>
+                                <td>{{ obj.warehouse_to|default:"—" }}</td>
+                                <td>{{ obj.counterparty|default:"—" }}</td>
+                                <td>
+                                    {% if obj.is_posted %}
+                                        <span class="pill ok">Да</span>
+                                    {% else %}
+                                        <span class="pill no">Нет</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <div class="actions">
+                                        <a class="btn secondary" href="{% url 'doc_detail' obj.pk %}">Открыть</a>
+                                        {% if not obj.is_posted %}
+                                            <a class="btn danger" href="{% url 'doc_delete' obj.pk %}">Удалить</a>
+                                        {% endif %}
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <div class="empty">Документы пока не созданы</div>
+            {% endif %}
+        </section>
+    {% endif %}
+
+    {% if page == "stocks" %}
+        <section class="hero">
+            <h1>Остатки</h1>
+            <p>Текущие остатки товаров по складам после проведения документов</p>
+        </section>
+
+        <section class="table-wrap">
+            {% if objects %}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Склад</th>
+                            <th>Товар</th>
+                            <th>Количество</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for obj in objects %}
+                            <tr>
+                                <td>{{ obj.id }}</td>
+                                <td>{{ obj.warehouse }}</td>
+                                <td>{{ obj.product }}</td>
+                                <td>{{ obj.quantity }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <div class="empty">Остатков пока нет, нужно провести хотя бы один документ</div>
+            {% endif %}
+        </section>
+    {% endif %}
+
+    {% if page == "ledger" %}
+        <section class="hero">
+            <h1>Журнал движений</h1>
+            <p>История изменений остатков после проведения документов</p>
+        </section>
+
+        <section class="table-wrap">
+            {% if objects %}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Дата</th>
+                            <th>Документ</th>
+                            <th>Склад</th>
+                            <th>Товар</th>
+                            <th>Изменение</th>
+                            <th>Примечание</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for obj in objects %}
+                            <tr>
+                                <td>{{ obj.id }}</td>
+                                <td>{{ obj.created_at|date:"d.m.Y H:i" }}</td>
+                                <td>
+                                    <a href="{% url 'doc_detail' obj.doc.pk %}">
+                                        {{ obj.doc.doc_no }}
+                                    </a>
+                                </td>
+                                <td>{{ obj.warehouse }}</td>
+                                <td>{{ obj.product|default:"Удаленный товар" }}</td>
+                                <td>{{ obj.delta_qty }}</td>
+                                <td>{{ obj.note|default:"—" }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <div class="empty">Журнал движений пока пуст</div>
+            {% endif %}
+        </section>
+    {% endif %}
+{% endblock %}
