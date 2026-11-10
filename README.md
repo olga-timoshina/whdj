@@ -7,29 +7,10 @@
 
 | Канал | Ссылка |
 |-------|--------|
-| 📄 Резюме (PDF) | [Timoshina_Olga_QA_CV.pdf](docs/Timoshina_Olga_QA_CV.pdf) |
+
 | 📄 Резюме (HH.ru) | https://hh.ru/resume/be2f9113ff10ad8de20039ed1f44524f624179 |
 | ✈️ Telegram | https://t.me/OlgaTimoshina |
 | ✉️ Email | olga31172@yandex.ru |
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Резюме — Тимошина Ольга</title>
-    <style>
-        body { margin: 0; padding: 0; background: #f5f5f5; }
-        /* Заменяем embed на iframe */
-        iframe { display: block; width: 100%; height: 100vh; border: none; }
-    </style>
-</head>
-<body>
-    <!-- Используем iframe и прямую ссылку на PDF -->
-    <iframe src="https://olga-timoshina.github.io/whdj/docs/Timoshina_Olga_QA_CV.pdf" title="Резюме"></iframe>
-</body>
-</html>
-
-[📄 Открыть резюме](https://pdfgithub.com/olga-timoshina/whdj/blob/main/docs/Timoshina_Olga_QA_CV.pdf)
 
 
 # Warehouse QA — Портфолио тест-кейсов
