@@ -5,7 +5,9 @@
 
 ## Контакты
 Резюме https://hh.ru/resume/db9433f0ff0fc784b20039ed1f514f31797642
+
 Telegram @OlgaTimoshina
+
 Email olga31172@yandex.ru
 
 ## 1. Цель тестирования
