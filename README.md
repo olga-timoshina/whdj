@@ -4,6 +4,14 @@
 В этом портфолио представлен пример моего тестирования веб - системы складского учёта,которые показывают мой подход к проверке фукциональности и оформлению документации. 
 
 ## Контакты
+## 👤 Контакты
+
+| Канал | Ссылка |
+|-------|--------|
+| 📄 Резюме (PDF) | [Timoshina_Olga_QA_CV.pdf](docs/Timoshina_Olga_QA_CV.pdf) |
+| 📄 Резюме (HH.ru) | https://hh.ru/resume/db9433f0ff0fc784b20039ed1f514f31797642 |
+| ✈️ Telegram | https://t.me/OlgaTimoshina |
+| ✉️ Email | olga31172@yandex.ru |
 [![Resume](https://img.shields.io/badge/📄_Скачать_резюме-PDF-success?style=for-the-badge)](docs/Timoshina_Olga_QA_CV.pdf)
 | Канал | Ссылка |
 |-------|--------|
