@@ -20,6 +20,36 @@ PROD-09	Удаление товара (POST/DELETE)	Товар существу�
 PROD-10	Проверка заголовков ответа раздела «Товары»	DevTools → Network открыт	1. Открыть раздел 2. Headers → Response Headers	Content-Type text/html	 charset=utf-8, статус 200, нет утечки стектрейсов/внутренних путей	Low
 <img width="2519" height="300" alt="image" src="https://github.com/user-attachments/assets/19db7316-8ec7-40a5-9525-05246c02fba6" />
 
+# Warehouse QA — Портфолио тест-кейсов
+
+Коллекция тест-кейсов для веб-приложения «Складская система учёта».
+
+![Tests](https://img.shields.io/badge/test%20cases-23-blue)
+![Browsers](https://img.shields.io/badge/browsers-Chrome%20%7C%20Firefox%20%7C%20Safari-orange)
+![Network](https://img.shields.io/badge/tool-Chrome%20DevTools-green)
+
+**SUT:** https://warehouse-django-nmp9.onrender.com/
+
+## 📁 Содержимое
+
+| Файл | Раздел | Кейсов |
+|------|--------|--------|
+| [cross-browser.md](test-cases/cross-browser.md) | Кросс-браузерность (UI + Functional) | 3 |
+| [network.md](test-cases/network.md) | Сетевые запросы (DevTools → Network) | 10 |
+| [products.md](test-cases/products.md) | Справочник «Товары» | 10 |
+| [environment.md](docs/environment.md) | Окружение и предусловия | — |
+
+## 🛠 Что демонстрируют кейсы
+
+- Cross-browser тестирование (Blink / Gecko / WebKit)
+- Анализ HTTP-трафика: методы, статусы, заголовки, тайминги
+- Позитивные / негативные / boundary-сценарии
+- Проверка безопасности (HTTPS, mixed content, отсутствие утечек в ответах)
+
+## 👤 Автор
+
+Ваше Имя — [LinkedIn](#) · [Telegram](#)
+
 ## 1. Цель тестирования
 
 Проверка корректности основных функций системы складского учета:
