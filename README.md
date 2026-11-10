@@ -12,6 +12,7 @@
 | ✈️ Telegram | https://t.me/OlgaTimoshina |
 | ✉️ Email | olga31172@yandex.ru |
 
+[📄 Открыть резюме](https://pdfgithub.com/olga-timoshina/whdj/blob/main/docs/Timoshina_Olga_QA_CV.pdf)
 
 
 # Warehouse QA — Портфолио тест-кейсов
