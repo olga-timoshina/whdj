@@ -5,7 +5,10 @@
 
 ## Контакты
 Резюме https://hh.ru/resume/db9433f0ff0fc784b20039ed1f514f31797642
-
+Канал	Ссылка
+Резюме	lutsenkoav.github.io
+Telegram	@lutsenkoav
+Email	aleksey-lutsenko@ya.ru
 Telegram @OlgaTimoshina
 Email olga31172@yandex.ru
 
