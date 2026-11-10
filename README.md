@@ -13,11 +13,6 @@
 | ✈️ Telegram | https://t.me/OlgaTimoshina |
 | ✉️ Email | olga31172@yandex.ru |
 [![Resume](https://img.shields.io/badge/📄_Скачать_резюме-PDF-success?style=for-the-badge)](docs/Timoshina_Olga_QA_CV.pdf)
-| Канал | Ссылка |
-|-------|--------|
-| Резюме | [hh.ru/resume/db9433f0…](https://hh.ru/resume/db9433f0ff0fc784b20039ed1f514f31797642) |
-| Telegram | [@OlgaTimoshina](https://t.me/OlgaTimoshina) |
-| Email | [olga31172@yandex.ru](mailto:olga31172@yandex.ru) |
 
 Резюме https://hh.ru/resume/db9433f0ff0fc784b20039ed1f514f31797642
 
