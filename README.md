@@ -11,6 +11,7 @@
 | 📄 Резюме (HH.ru) | https://hh.ru/resume/be2f9113ff10ad8de20039ed1f44524f624179 |
 | ✈️ Telegram | https://t.me/OlgaTimoshina |
 | ✉️ Email | olga31172@yandex.ru |
+| 📄 Резюме (PDF) | [Открыть резюме](https://olga-timoshina.github.io/whdj/docs/Timoshina_Olga_QA_CV.pdf) |
 
 [📄 Открыть резюме](https://pdfgithub.com/olga-timoshina/whdj/blob/main/docs/Timoshina_Olga_QA_CV.pdf)
 
