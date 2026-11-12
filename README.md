@@ -11,6 +11,20 @@
 | ✈️ Telegram | [@OlgaTimoshina](https://t.me/OlgaTimoshina) |
 | ✉️ Email | [olga31172@yandex.ru](mailto:olga31172@yandex.ru) |
 
+warehouse-qa-portfolio/
+├── README.md
+├── checklists/
+│   └── checklist-warehouse.md
+├── test-scenarios/
+│   └── scenarios-warehouse.md
+├── test-cases/
+│   └── test-cases-warehouse.md
+├── bug-reports/
+│   └── bug-report-example.md
+└── screenshots/
+    ├── chrome-homepage.png
+    ├── firefox-homepage.png
+    └── mobile-view.png
 ## 📂 Структура портфолио
 
 Портфолио содержит **четыре логических раздела**, каждый из которых показывает определённый аспект моей работы.
