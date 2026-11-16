@@ -98,14 +98,6 @@
 | **Итого** | **13 артефактов** |
 
 * * *
-
-## 🔧 Мой стек технологий
-
-- **Типы тестирования:** Functional, Smoke, Regression, UI/UX, Compatibility (Web)
-- **Инструменты API и отладка:** Chrome DevTools, Firefox Developer Tools
-- **Кросс-браузерное тестирование:** BrowserStack (базово), ручное тестирование
-- **Контроль версий и IDE:** GitHub, VS Code
-- **Трекинг и документация:** Markdown, GitHub Issues
 # 🧪 Сценарии тестирования — Складская система учета
 
 ---
