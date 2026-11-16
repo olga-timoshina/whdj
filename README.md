@@ -184,7 +184,8 @@
 Вторая карточка смещена вниз и вправо, отступы разные.
 
 ## 📎 Вложения
-- Скриншот: `../screenshots/tablet-layout.png`
+- Скриншот:<img width="1347" height="720" alt="Снимок экрана 2026-11-16 111915" src="https://github.com/user-attachments/assets/f6ef0f88-7026-4885-a4b1-79b35271ec29" />
+ `../screenshots/tablet-layout.png`
 - Лог консоли: ошибок нет
 
 ## 📝 Дополнительно
