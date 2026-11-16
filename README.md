@@ -226,14 +226,6 @@
 ## 📎 Вложения
 - Скриншот: `../screenshots/date-format.png`
 
-## 📝 Дополнительно
-Возможно, требуется уточнение у аналитика — какой формат считается эталонным.
-git init
-git add .
-git commit -m "Add QA portfolio for warehouse app: checklists, scenarios, test cases, bug reports"
-git branch -M main
-git remote add origin https://github.com/[ваш-ник]/warehouse-qa-portfolio.git
-git push -u origin main
 ## 1. Цель тестирования
 
 Проверка корректности основных функций системы складского учета:
