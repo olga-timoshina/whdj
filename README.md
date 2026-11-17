@@ -82,11 +82,7 @@
 |---|---|---|---|---|
 | [bug-report-example-ui.md](bug-reports/bug-report-example-ui.md) | UI/UX | Dashboard | Medium | Minor |
 | [bug-report-example-functional.md](bug-reports/bug-report-example-functional.md) | UX / Консистентность | Документы | Medium | Minor |
-| Файл | Тип | Компонент | Приоритет | Серьёзность |
-|---|---|---|---|---|
 
-| [bug-report-example-ui.md](bug-reports/bug-report-example-ui.md) | UI/UX | Dashboard | Medium | Minor |
-| [bug-report-example-functional.md](bug-reports/bug-report-example-functional.md) | UX / Консистентность | Документы | Medium | Minor |
 
 * * *
 
