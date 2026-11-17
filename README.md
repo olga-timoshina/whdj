@@ -84,14 +84,6 @@
 | [bug-report-example-ui.md](bug-reports/bug-report-example-ui.md) | UI/UX | Dashboard | Medium | Minor |
 | [bug-report-example-date-format.md](bug-reports/bug-report-example-date-format.md) | UX / Консистентность | Документы | Medium | Minor |
 
-,,,
-Примеры оформления дефектов разных типов: от UI/UX до UX/консистентности. Каждый баг-репорт содержит шаги воспроизведения, ожидаемый/фактический результат, окружение и вложения.
-| Файл | Тип | Компонент | Приоритет | Серьёзность |
-|---|---|---|---|---|
-| [bug-report-example-ui.md](bug-reports/bug-report-example-ui.md) | UI/UX | Dashboard | Medium | Minor |
-| [bug-report-example-functional.md](bug-reports/bug-report-example-functional.md) | UX / Консистентность | Документы | Medium | Minor |
-
-
 * * *
 
 ## 📊 Общая статистика
