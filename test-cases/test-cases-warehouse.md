@@ -214,9 +214,7 @@
 - [x] ✅ **Passed**
 
 ## 📸 Скриншоты
-![Мобильный вид](../screenshots/mobile-view.png)
-
----
+![Uploading 2026-11-19_11-08-39.png…]()
 
 # TC-006 — Кросс-браузерность (Firefox)
 
