@@ -214,7 +214,7 @@
 - [x] ✅ **Passed**
 
 ## 📸 Скриншоты
-![Uploading 2026-11-19_11-08-39.png…]()
+<img width="1920" height="1080" alt="2026-11-19_11-08-39" src="https://github.com/user-attachments/assets/f6dc5969-76e8-4c51-bc10-ee95f06a3e03" />
 
 # TC-006 — Кросс-браузерность (Firefox)
 
