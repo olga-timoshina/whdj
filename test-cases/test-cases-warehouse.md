@@ -54,7 +54,7 @@
 ## 📸 Скриншоты
  <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/27f6aec5-898b-4b5d-bf68-c6902f0b6422" />
 
-![Главная страница в Chrome](../screenshots/chrome-homepage.png)
+![Главная страница в Chrome](../screenshots/Снимок%20экрана%202026-11-16%20111915.png)
 
 ## 📝 Заметки
 - Первый запрос к сайту на Render может занимать до 50 сек — ожидаемое поведение хостинга, не дефект.
