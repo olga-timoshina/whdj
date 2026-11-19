@@ -52,7 +52,6 @@
 - [x] ✅ **Passed**
 
 ## 📸 Скриншоты
- https://warehouse-django-nmp9.onrender.com/  https://warehouse-django-nmp9.onrender.com/ 
 ![Главная страница в Chrome](../screenshots/chrome-homepage.png)
 
 ## 📝 Заметки
