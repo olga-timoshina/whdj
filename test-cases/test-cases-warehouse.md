@@ -52,6 +52,8 @@
 - [x] ✅ **Passed**
 
 ## 📸 Скриншоты
+ <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/27f6aec5-898b-4b5d-bf68-c6902f0b6422" />
+
 ![Главная страница в Chrome](../screenshots/chrome-homepage.png)
 
 ## 📝 Заметки
