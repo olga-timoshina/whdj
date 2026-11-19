@@ -52,8 +52,7 @@
 - [x] ✅ **Passed**
 
 ## 📸 Скриншоты
-<img width="1920" height="1080" alt="2026-11-19_10-43-36" src="https://github.com/user-attachments/assets/01ec482e-944b-4bf1-9d54-80cc0db6ff58" />
-
+<img width="1920" height="1080" alt="2026-11-19_10-43-36" src="https://github.com/user-attachments/assets/08d2caca-1384-422c-899b-49345d416fd1" />
 
 ## 📝 Заметки
 - Первый запрос к сайту на Render может занимать до 50 сек — ожидаемое поведение хостинга, не дефект.
