@@ -1,3 +1,5 @@
+<img width="1920" height="1080" alt="2026-11-19_11-32-21" src="https://github.com/user-attachments/assets/752b986b-f625-476c-a7a3-3080d2c57921" />
+<img width="1920" height="1080" alt="2026-11-19_11-32-21" src="https://github.com/user-attachments/assets/aa2bfb7f-1c84-46b2-814b-e62b6317c970" />
 
 # QA Портфолио - Тимошина Ольга 
 Здравствуйте! Меня зовут Тимошина Ольга, я начинающий QA Engineer.
@@ -269,6 +271,7 @@
 Дата отображается как `12.11.2026 11:12` — формат не соответствует требованию.
 
 ## 📎 Вложения
+<img width="1920" height="1080" alt="2026-11-19_11-32-21" src="https://github.com/user-attachments/assets/9d5dca21-7f86-4b26-9f13-3766ae82bea0" />
 
 * Скриншот: [Открыть скриншот](../screenshots/date-format.png)
 ## 1. Цель тестирования
